@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-    deploy:
+    build-and-release:
         runs-on: ubuntu-latest
 
         steps:
@@ -21,13 +21,9 @@ jobs:
               run: |
                   docker build -t picture_api -f ./dockerfile .
 
-            - name: Log into registry
-              run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-            - name: Push image
+            - name: Export image
               run: |
-                  docker tag picture_api docker.pkg.github.com/${{ github.repository }}/picture_api:latest
-                  docker push docker.pkg.github.com/${{ github.repository }}/picture_api:latest
+                  docker save picture_api | gzip > picture_api.tar.gz
 
             - name: Create GitHub Release
               id: create_release

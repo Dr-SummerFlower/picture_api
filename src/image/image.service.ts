@@ -1,6 +1,7 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Sequelize } from 'sequelize-typescript';
 import { IdDto } from './dto/image.dto';
+import { Image } from './entities/image.entity';
 
 @Injectable()
 export class ImageService {
@@ -9,16 +10,22 @@ export class ImageService {
         private readonly sequelize: Sequelize,
     ) {}
 
-    async getImage(id: IdDto): Promise<Buffer> {
+    async getImages(): Promise<any> {
+        const allImages: Image[] =
+            (await this.sequelize.models.Image.findAll()) as Image[];
+        const randomIndex: number = Math.floor(
+            Math.random() * allImages.length,
+        );
+        const randomImage: Image = allImages[randomIndex];
+        return randomImage.image;
+    }
+
+    async getImageById(id: IdDto): Promise<any> {
         const image: any = await this.sequelize.models.Image.findOne({
             where: {
                 id,
             },
         });
-        if (image.dataValues.image) {
-            return image.dataValues.image;
-        } else {
-            throw new HttpException('图片未找到', HttpStatus.NOT_FOUND);
-        }
+        return image.image;
     }
 }

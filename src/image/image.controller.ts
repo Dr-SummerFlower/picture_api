@@ -14,11 +14,18 @@ import { IdPipe } from './image.pipe';
 export class ImageController {
     constructor(private readonly imageService: ImageService) {}
 
+    @Get('/')
+    @Header('Content-Type', 'image/jpeg')
+    @Header('Content-Disposition', 'inline')
+    async getImages(): Promise<any> {
+        return new StreamableFile(await this.imageService.getImages());
+    }
+
     @Get(':id')
     @UsePipes(IdPipe)
     @Header('Content-Type', 'image/jpeg')
     @Header('Content-Disposition', 'inline')
     async reqGetImage(@Param('id') id: IdDto): Promise<any> {
-        return new StreamableFile(await this.imageService.getImage(id));
+        return new StreamableFile(await this.imageService.getImageById(id));
     }
 }

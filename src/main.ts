@@ -12,7 +12,7 @@ async function bootstrap() {
     app.setBaseViewsDir(join(__dirname, '..', 'public', 'views'));
     app.setViewEngine('express-art-template');
 
-    await app.listen(25551);
+    await app.listen(3100);
 }
 
 bootstrap();

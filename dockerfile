@@ -10,6 +10,9 @@ COPY . .
 # 安装项目依赖
 RUN npm install --production
 
+# 编译项目
+RUN npm run build
+
 # 暴露端口，容器内应用监听的端口
 EXPOSE 25551
 

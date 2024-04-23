@@ -1,0 +1,15 @@
+# 版本号
+version: '3.8'
+# 定义服务
+services:
+    # node服务
+    node-server:
+        # 构建
+        build:
+            # 构建上下文
+            context: .
+            # 定义Dockerfile路径
+            dockerfile: ./dockerfile
+        # 端口映射，将宿主机的 25551 端口映射到容器的 25551 端口
+        ports:
+            - "25551:25551"

@@ -7,6 +7,9 @@ WORKDIR /usr/src/app
 # 将项目中的所有文件复制到工作目录中, 第一个"."表示当前目录, 第二个"."表示工作目录
 COPY . .
 
+# 安装 Nest.js CLI
+RUN npm install -g @nestjs/cli
+
 # 安装项目依赖
 RUN npm install --production
 

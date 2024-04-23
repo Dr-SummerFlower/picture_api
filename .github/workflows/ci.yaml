@@ -1,24 +1,51 @@
 name: picture_api
 
-on: [push]
+on:
+    push:
+        branches:
+            - main
 
 jobs:
+
     deploy:
         runs-on: ubuntu-latest
+
         steps:
-            - name: 检出代码
-              uses: actions/checkout@v2
-            - name: 设置Docker Buildx
-              uses: docker/setup-buildx-action@v1
-            - name: 构建镜像
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v2
+
+            - name: Build image
               run: |
                   docker build -t picture_api -f ./dockerfile .
-            - name: 导出镜像
-              run: |
-                  docker save picture_api | gzip > picture_api.tar.gz
-            - name: 上传镜像
-              uses: actions/upload-artifact@v2
-              with:
-                  name: picture_api
-                  path: picture_api.tar.gz
 
+            - name: Log into registry
+              run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+            - name: Push image
+              run: |
+                  docker tag picture_api docker.pkg.github.com/${{ github.repository }}/picture_api:latest
+                  docker push docker.pkg.github.com/${{ github.repository }}/picture_api:latest
+
+            - name: Create GitHub Release
+              id: create_release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: ${{ github.sha }}
+                  release_name: Release ${{ github.sha }}
+                  body: ${{ github.event.head_commit.message }}
+
+            - name: Upload Release Asset
+              id: upload-release-asset
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./picture_api.tar.gz
+                  asset_name: picture_api.tar.gz
+                  asset_content_type: application/gzip

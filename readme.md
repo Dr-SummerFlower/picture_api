@@ -1,10 +1,9 @@
-# <center>nestJS-Picture_API</center>
-
 <div style="text-align: center;">
-  <a href="https://nestjs.com/" style="display: inline-block; margin: 0 5px;"><img src="https://img.shields.io/badge/NestJS-10.0.0-ea2845" alt="NestJS Version"></a>
-  <a href="https://sequelize.org/" style="display: inline-block; margin: 0 5px;"><img src="https://img.shields.io/badge/Sequelize-6.37.1-02afef" alt="Sequelize Version"></a>
-  <a href="https://github.com/mapbox/node-sqlite3" style="display: inline-block; margin: 0 5px;"><img src="https://img.shields.io/badge/SQLite3-5.1.7-044a64" alt="SQLite3 Version"></a>
-  <a href="https://www.typescriptlang.org/" style="display: inline-block; margin: 0 5px;"><img src="https://img.shields.io/badge/TypeScript-5.1.3-337ab7" alt="TypeScript Version"></a>
+    <h1>nestJS-Picture_API</h1>
+    <a href="https://nestjs.com/" style="display: inline-block; margin: 0 5px;"><img src="https://img.shields.io/badge/NestJS-10.0.0-ea2845" alt="NestJS Version"></a>
+    <a href="https://sequelize.org/" style="display: inline-block; margin: 0 5px;"><img src="https://img.shields.io/badge/Sequelize-6.37.1-02afef" alt="Sequelize Version"></a>
+    <a href="https://github.com/mapbox/node-sqlite3" style="display: inline-block; margin: 0 5px;"><img src="https://img.shields.io/badge/SQLite3-5.1.7-044a64" alt="SQLite3 Version"></a>
+    <a href="https://www.typescriptlang.org/" style="display: inline-block; margin: 0 5px;"><img src="https://img.shields.io/badge/TypeScript-5.1.3-337ab7" alt="TypeScript Version"></a>
 </div>
 
 ## 说明

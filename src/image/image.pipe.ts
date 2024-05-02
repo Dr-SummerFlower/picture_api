@@ -15,7 +15,7 @@ export class IdPipe implements PipeTransform {
         const idObj: { id: number } = { id: id };
         const DTO: any = plainToInstance(metadata.metatype, idObj);
         const errors: ValidationError[] = await validate(DTO);
-        if (errors.length) {
+        if (errors.length > 0) {
             throw new HttpException(
                 errors[0].constraints,
                 HttpStatus.BAD_REQUEST,
